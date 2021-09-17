@@ -14,7 +14,7 @@ Create a build.gradle.kts like so:
 ```gradle
 
 plugins {
-    id("com.github.skhatri.dependencyset") version "0.1.2"
+    id("com.github.skhatri.dependencyset") version "0.1.0"
 }
 
 appConfig {
@@ -24,6 +24,26 @@ appConfig {
     testImplementationItems.value(listOf("junit"))
 }
 ```
+
+or using legacy mode
+
+
+```gradle
+buildscript {
+  dependencies {
+    classpath("com.github.skhatri:com.github.skhatri.dependencyset.gradle.plugin:0.1.0")
+  }
+}
+
+apply<com.github.skhatri.dependency.DependencySetPlugin>()
+appConfig {
+    main.set("com.plugins.Application")
+    lang.value(listOf("java", "kotlin"))
+    implementationItems.value(listOf("spring-boot", "jackson", "coroutines", "kotlin"))
+    testImplementationItems.value(listOf("junit"))
+}
+```
+
 
 these few lines of gradle config will configure your application to use kotlin and springboot. It will also pull in required test dependencies.
 
