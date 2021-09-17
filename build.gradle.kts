@@ -48,12 +48,11 @@ artifacts {
 if (project.extra["target"] != "sonatype") {
     gradlePlugin {
         plugins {
-            create("com.github.skhatri.reposet") {
-                id = "com.github.skhatri.reposet"
-                displayName = "A plugin to configure gradle repositories and plugins for one or all builds"
-                description =
-                    "This plugin will provide config to set repositories and plugins for your projects. This can be useful to add default repository for personal or enterprise projects"
-                implementationClass = "com.github.skhatri.gradle.init.ReposetPlugin"
+            create("com.github.skhatri.dependencyset") {
+                id = "com.github.skhatri.dependencyset"
+                displayName = "A plugin to manage your dependency library version"
+                description = "Manage versions of your libraries for java applications"
+                implementationClass = "com.github.skhatri.dependency.DependencySetPlugin"
             }
         }
     }
@@ -61,7 +60,7 @@ if (project.extra["target"] != "sonatype") {
     pluginBundle {
         website = "${project.extra["scm.url"]}"
         vcsUrl = "${project.extra["scm.url"]}"
-        tags = listOf("s3", "bucket", "upload", "download")
+        tags = listOf("spring", "spring-boot", "spark", "dependencies", "version")
     }
 } else {
     publishing.repositories {
@@ -94,7 +93,7 @@ project.publishing.publications.withType(MavenPublication::class.java).forEach {
         withXml {
             val root = asNode()
             root.appendNode("name", project.name)
-            root.appendNode("description", "This plugin will provide config to set repositories and plugins for your projects. This can be useful to add default repository for personal or enterprise projects")
+            root.appendNode("description", "A plugin to manage your dependency library version")
             root.appendNode("url", scmUrl)
         }
         licenses {
@@ -136,3 +135,6 @@ tasks.withType<Sign>().configureEach {
     onlyIf { project.extra["release"] == "true" }
 }
 
+tasks.withType<org.gradle.api.tasks.Copy>().configureEach {
+    duplicatesStrategy = org.gradle.api.file.DuplicatesStrategy.WARN
+}
