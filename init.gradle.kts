@@ -3,10 +3,7 @@ initscript {
         mavenCentral()
     }
     dependencies {
-        classpath("com.github.skhatri:gradle-reposet-plugin:0.1.2")
+        classpath("com.github.skhatri.reposet:com.github.skhatri.reposet.gradle.plugin:0.1.2")
     }
 }
-
 apply<com.github.skhatri.gradle.init.ReposetPlugin>()
-
-
