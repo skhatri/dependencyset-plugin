@@ -14,35 +14,18 @@ Create a build.gradle.kts like so:
 ```gradle
 
 plugins {
-    id("com.github.skhatri.dependencyset") version "0.1.0"
+  id("com.github.skhatri.dependencyset") version "0.1.0"
 }
 
 appConfig {
-    main.set("com.plugins.Application")
-    lang.value(listOf("java", "kotlin"))
-    implementationItems.value(listOf("spring-boot", "jackson", "coroutines", "kotlin"))
-    testImplementationItems.value(listOf("junit"))
+  main.set("com.plugins.Application")
+  lang.value(listOf("java", "kotlin"))
+  implementationItems.value(listOf("spring-boot", "jackson", "coroutines", "kotlin"))
+  testImplementationItems.value(listOf("junit"))
 }
+
 ```
 
-or using legacy mode
-
-
-```gradle
-buildscript {
-  dependencies {
-    classpath("com.github.skhatri:com.github.skhatri.dependencyset.gradle.plugin:0.1.0")
-  }
-}
-
-apply<com.github.skhatri.dependency.DependencySetPlugin>()
-appConfig {
-    main.set("com.plugins.Application")
-    lang.value(listOf("java", "kotlin"))
-    implementationItems.value(listOf("spring-boot", "jackson", "coroutines", "kotlin"))
-    testImplementationItems.value(listOf("junit"))
-}
-```
 
 
 these few lines of gradle config will configure your application to use kotlin and springboot. It will also pull in required test dependencies.
@@ -52,4 +35,20 @@ these few lines of gradle config will configure your application to use kotlin a
 Absolutely, that is the idea. We call put dependencies in small bundles and we call them dependencyset. Dependencyset can be local or remote. More on this soon.
 
 
+### Example
+Example setup can be run locally or using central maven repository dependency.
 
+#### Local
+Build the plugin. Switch to local directory and run a java build. init.gradle.kts to inject repository configuration.
+```shell
+#build plugin
+gradle clean build -I init.gradle.kts
+cd example/local
+gradle clean build -I ../../init.gradle.kts
+
+```
+#### Using Library
+```shell
+cd example/remote
+gradle clean build -I ../../init.gradle.kts
+```

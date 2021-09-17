@@ -1,4 +1,3 @@
-
 plugins {
     id("com.github.skhatri.dependencyset") version "0.1.0"
 }
